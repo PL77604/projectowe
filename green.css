@@ -231,6 +231,56 @@ section:nth-of-type(6) li:before {
 	color: #063300;
 }
 
+/* Formularz */
+#contactFormSection {
+	margin-top: 30px;
+	padding: 20px;
+	border-top: 2px solid #ccc;
+}
+
+#contactForm div {
+	margin-bottom: 15px;
+}
+
+#contactForm label {
+	display: inline-block;
+	width: 120px;
+	font-weight: bold;
+}
+
+#contactForm input, #contactForm textarea {
+    width: 300px;
+    padding: 8px;
+    border: 2px solid #333;  
+    border-radius: 4px;
+    background-color: #fff;   
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#contactForm input:focus, #contactForm textarea:focus {
+    border-color: #007bff;  
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+input.error-border, textarea.error-border {
+	border: 2px solid red !important;
+	background-color: #ffe6e6;
+}
+
+button {
+	padding: 8px 15px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
 /* Footer */
 footer {
 	text-align: center;
