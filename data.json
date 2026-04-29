@@ -1,0 +1,19 @@
+{
+	"skills": [
+		"HTML",
+		"CSS",
+		"Java",
+		"C#",
+		"Python"
+	],
+	"projects": [
+		{
+			"name": "Capes Maker",
+			"description": "program do konwersji obrazów PNG na peleryny do gry Minecraft, specjalnie dla zmodyfikowanych serwerów"
+		},
+		{
+			"name": "Texture Maker",
+			"description": "program do konwersji obrazów PNG na tekstury do zapisywania modyfikacji do gier w różnych formatach"
+		}
+	]
+}

@@ -125,3 +125,38 @@ if (contactForm) {
 		});
 	}
 }
+
+// Funkcja do pobierania danych z JSON i generowania HTML
+async function loadData() {
+	try {
+		const response = await fetch('data.json');
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await response.json();
+
+		// Generowanie listy umiejętności
+		const skillsList = document.getElementById('skills-list');
+		if (skillsList) {
+			skillsList.innerHTML = data.skills.map(skill => `<li>${skill}</li>`).join('');
+		}
+
+		// Generowanie listy projektów
+		const projectsList = document.getElementById('projects-list');
+		if (projectsList) {
+			projectsList.innerHTML = data.projects.map(project =>
+				`<li>${project.name} - ${project.description}</li>`
+			).join('');
+		}
+
+	} catch (error) {
+		console.error('Błąd ładowania danych:', error);
+
+	}
+}
+
+
+// Uruchom ładowanie danych po załadowaniu strony
+document.addEventListener('DOMContentLoaded', loadData);
