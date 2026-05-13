@@ -66,6 +66,10 @@ function validateForm(event) {
 	let isValid = true;
 
 	const name = document.getElementById('name').value.trim();
+	const surname = document.getElementById('surname').value.trim();
+	const email = document.getElementById('email').value.trim();
+	const message = document.getElementById('message').value.trim();
+
 	if (name === '') {
 		showError('name', 'Pole "Imię" jest wymagane');
 		isValid = false;
@@ -74,7 +78,6 @@ function validateForm(event) {
 		isValid = false;
 	}
 
-	const surname = document.getElementById('surname').value.trim();
 	if (surname === '') {
 		showError('surname', 'Pole "Nazwisko" jest wymagane');
 		isValid = false;
@@ -83,7 +86,6 @@ function validateForm(event) {
 		isValid = false;
 	}
 
-	const email = document.getElementById('email').value.trim();
 	if (email === '') {
 		showError('email', 'Pole "E-mail" jest wymagane');
 		isValid = false;
@@ -92,18 +94,45 @@ function validateForm(event) {
 		isValid = false;
 	}
 
-	const message = document.getElementById('message').value.trim();
 	if (message === '') {
 		showError('message', 'Pole "Wiadomość" jest wymagane');
 		isValid = false;
 	}
 
-	if (isValid) {
-		alert('Formularz został poprawnie wypełniony!');
-		document.getElementById('contactForm').reset();
+	if (!isValid) {
+		return false;
 	}
 
-	return isValid;
+	// Jeśli walidacja przeszła pomyślnie, wyślij dane na backend
+	sendFormToBackend(name, surname, email, message);
+
+	return false;
+}
+
+// Nowa funkcja wysyłania na serwer
+async function sendFormToBackend(name, surname, email, message) {
+	try {
+		const response = await fetch('http://localhost:3000/api/contact', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name, surname, email, message })
+		});
+
+		const result = await response.json();
+
+		if (result.success) {
+			alert('Formularz został pomyślnie wysłany na serwer!');
+			document.getElementById('contactForm').reset();
+			clearErrors();
+		} else {
+			alert('Błąd: ' + (result.error || 'Nieznany błąd'));
+		}
+	} catch (error) {
+		console.error('Błąd połączenia z serwerem:', error);
+		alert('Nie można połączyć się z serwerem.\nUpewnij się, że backend jest uruchomiony (node server.js)');
+	}
 }
 
 const contactForm = document.getElementById('contactForm');
@@ -173,7 +202,6 @@ function escapeHtml(text) {
 
 function renderTodos() {
 	const todos = loadTodos();
-
 	if (todos.length === 0) {
 		todoList.innerHTML = '<li>Brak zadań. Dodaj pierwsze zadanie!</li>';
 		return;
